@@ -1,5 +1,5 @@
 import './App.css';
-import { ContactForm } from './components/ContactForm/ContactForm.jsx';
+import ContactForm from 'components/ContactForm/ContactForm';
 import { Filter } from 'components/Filter/Filter';
 import { ContactList } from './components/ContactList/ContactList';
 import React, { Component } from 'react';
@@ -27,11 +27,21 @@ export class App extends Component {
     if (this.state.contacts.find(contact => contact.name === this.state.name)) {
       return alert(`dssd`);
     }
-    this.state.contacts.push({
-      name: this.state.name,
-      number: this.state.number,
-      id: `id-` + Number(this.state.contacts.length + 1),
+    this.setState({
+      contacts: [
+        ...this.state.contacts,
+        {
+          name: this.state.name,
+          number: this.state.number,
+          id: `id-` + Number(this.state.contacts.length + 1),
+        },
+      ],
     });
+    // this.state.contacts.push({
+    //   name: this.state.name,
+    //   number: this.state.number,
+    //   id: `id-` + Number(this.state.contacts.length + 1),
+    // });
   };
   handleChange = evt => {
     const { name, value } = evt.target;
@@ -74,4 +84,15 @@ App.propTypes = {
   number: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   filter: PropTypes.string.isRequired,
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ),
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  handleFilterTextChange: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
 };
