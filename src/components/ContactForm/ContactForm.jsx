@@ -5,9 +5,9 @@ class ContactForm extends Component {
     name: '',
     number: '',
   };
-  handleSubmits = evt => {
+  handleSubmit = evt => {
     evt.preventDefault();
-    this.props.onHandleSubmit(this.state);
+    this.props.handleSubmit(this.state);
     this.setState({ name: '', number: '' });
   };
   handleChange = evt => {
@@ -16,10 +16,10 @@ class ContactForm extends Component {
   };
   render() {
     const { name, number } = this.state;
-    const { handleSubmits, handleChange } = this;
+    const { handleSubmit, handleChange } = this;
     return (
       <form
-        onSubmit={handleSubmits}
+        onSubmit={handleSubmit}
         style={{ border: '1px solid', width: '500px', padding: '15px' }}
       >
         <label>

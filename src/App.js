@@ -4,6 +4,7 @@ import { Filter } from 'components/Filter/Filter';
 import { ContactList } from './components/ContactList/ContactList';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { nanoid } from 'nanoid';
 export class App extends Component {
   state = {
     contacts: [
@@ -21,7 +22,7 @@ export class App extends Component {
     });
   };
 
-  onHandleSubmit = ({ name, number }) => {
+  handleSubmit = ({ name, number }) => {
     if (this.state.contacts.find(contact => contact.name === name)) {
       return alert(`dssd`);
     }
@@ -31,7 +32,7 @@ export class App extends Component {
         {
           name: name,
           number: number,
-          id: `id-` + Number(this.state.contacts.length + 1),
+          id: `${nanoid()}`,
         },
       ],
     });
@@ -43,12 +44,12 @@ export class App extends Component {
   };
   render() {
     const { filter, contacts } = this.state;
-    const { onHandleSubmit, handleFilterTextChange, deleteItem } = this;
+    const { handleSubmit, handleFilterTextChange, deleteItem } = this;
 
     return (
       <>
         <h1>Phonebook</h1>
-        <ContactForm onHandleSubmit={onHandleSubmit} />
+        <ContactForm handleSubmit={handleSubmit} />
         <h2>Contacts</h2>
         <Filter
           filter={filter}

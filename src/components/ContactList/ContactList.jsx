@@ -1,4 +1,4 @@
-import { nanoid } from 'nanoid';
+import Contact from 'components/Contact/Contact';
 export const ContactList = ({ contacts, filter, deleteItem }) => (
   <ul>
     {contacts
@@ -6,21 +6,7 @@ export const ContactList = ({ contacts, filter, deleteItem }) => (
         contact.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
       )
       .map(contact => (
-        <li
-          style={{ width: '275px', display: 'flex' }}
-          id={contact.id}
-          key={nanoid()}
-        >
-          {contact.name}: {contact.number}
-          <input
-            onClick={() => {
-              deleteItem(contact.id);
-            }}
-            style={{ marginLeft: 'auto' }}
-            type="button"
-            value="Delete"
-          />
-        </li>
+        <Contact contact={contact} deleteItem={deleteItem} />
       ))}
   </ul>
 );
