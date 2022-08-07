@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 class ContactForm extends Component {
+  state = {
+    name: '',
+    number: '',
+  };
+  handleSubmits = evt => {
+    evt.preventDefault();
+    this.props.onHandleSubmit(this.state);
+    this.setState({ name: '', number: '' });
+  };
+  handleChange = evt => {
+    const { name, value } = evt.target;
+    this.setState({ [name]: value });
+  };
   render() {
-    const { name, number, handleSubmit, handleChange } = this.props;
+    const { name, number } = this.state;
+    const { handleSubmits, handleChange } = this;
     return (
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmits}
         style={{ border: '1px solid', width: '500px', padding: '15px' }}
       >
         <label>
@@ -43,5 +57,10 @@ class ContactForm extends Component {
     );
   }
 }
-
+ContactForm.propTypes = {
+  number: PropTypes.string,
+  name: PropTypes.string,
+  handleChange: PropTypes.func,
+  handleSubmits: PropTypes.func,
+};
 export default ContactForm;

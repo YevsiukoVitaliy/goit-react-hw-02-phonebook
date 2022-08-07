@@ -21,31 +21,20 @@ export class App extends Component {
     });
   };
 
-  handleSubmit = evt => {
-    evt.preventDefault();
-    this.setState({ name: '', number: '' });
-    if (this.state.contacts.find(contact => contact.name === this.state.name)) {
+  onHandleSubmit = ({ name, number }) => {
+    if (this.state.contacts.find(contact => contact.name === name)) {
       return alert(`dssd`);
     }
     this.setState({
       contacts: [
         ...this.state.contacts,
         {
-          name: this.state.name,
-          number: this.state.number,
+          name: name,
+          number: number,
           id: `id-` + Number(this.state.contacts.length + 1),
         },
       ],
     });
-    // this.state.contacts.push({
-    //   name: this.state.name,
-    //   number: this.state.number,
-    //   id: `id-` + Number(this.state.contacts.length + 1),
-    // });
-  };
-  handleChange = evt => {
-    const { name, value } = evt.target;
-    this.setState({ [name]: value });
   };
   deleteItem = id => {
     this.setState(prevState => ({
@@ -53,19 +42,13 @@ export class App extends Component {
     }));
   };
   render() {
-    const { name, number, filter, contacts } = this.state;
-    const { handleChange, handleSubmit, handleFilterTextChange, deleteItem } =
-      this;
+    const { filter, contacts } = this.state;
+    const { onHandleSubmit, handleFilterTextChange, deleteItem } = this;
 
     return (
       <>
         <h1>Phonebook</h1>
-        <ContactForm
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          name={name}
-          number={number}
-        />
+        <ContactForm onHandleSubmit={onHandleSubmit} />
         <h2>Contacts</h2>
         <Filter
           filter={filter}
@@ -81,18 +64,15 @@ export class App extends Component {
   }
 }
 App.propTypes = {
-  number: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  filter: PropTypes.string.isRequired,
+  filter: PropTypes.string,
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
+      id: PropTypes.string,
+      name: PropTypes.string,
+      number: PropTypes.string,
     })
   ),
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  handleFilterTextChange: PropTypes.func.isRequired,
-  deleteItem: PropTypes.func.isRequired,
+  onHandleSubmit: PropTypes.func,
+  handleFilterTextChange: PropTypes.func,
+  deleteItem: PropTypes.func,
 };
