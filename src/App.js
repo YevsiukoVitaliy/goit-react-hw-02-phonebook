@@ -23,7 +23,11 @@ export class App extends Component {
   };
 
   handleSubmit = ({ name, number }) => {
-    if (this.state.contacts.find(contact => contact.name === name)) {
+    if (
+      this.state.contacts.find(
+        contact => contact.name.toLocaleLowerCase() === name.toLocaleLowerCase()
+      )
+    ) {
       return alert(`dssd`);
     }
     this.setState({
@@ -32,7 +36,7 @@ export class App extends Component {
         {
           name: name,
           number: number,
-          id: `${nanoid()}`,
+          id: nanoid(),
         },
       ],
     });

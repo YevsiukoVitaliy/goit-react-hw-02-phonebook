@@ -1,19 +1,16 @@
 export default function Contact({ contact, deleteItem }) {
   return (
-    <li
-      style={{ width: '275px', display: 'flex' }}
-      id={contact.id}
-      key={contact.id}
-    >
+    <li style={{ width: '275px', display: 'flex' }} id={contact.id}>
       {contact.name}: {contact.number}
-      <input
+      <button
         onClick={() => {
           deleteItem(contact.id);
         }}
         style={{ marginLeft: 'auto' }}
         type="button"
-        value="Delete"
-      />
+      >
+        Delete
+      </button>
     </li>
   );
 }

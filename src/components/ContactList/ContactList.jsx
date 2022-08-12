@@ -6,7 +6,7 @@ export const ContactList = ({ contacts, filter, deleteItem }) => (
         contact.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
       )
       .map(contact => (
-        <Contact contact={contact} deleteItem={deleteItem} />
+        <Contact contact={contact} deleteItem={deleteItem} key={contact.id} />
       ))}
   </ul>
 );
